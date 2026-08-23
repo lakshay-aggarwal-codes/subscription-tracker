@@ -12,8 +12,8 @@ export default function App() {
                Home
             </Text>
             <Link href="/onboarding" className='mt-4 font-sans-bold rounded bg-primary text-white p-4'>Go To Onboarding</Link>
-            <Link href="/(auth)/sign-in" className='mt-4 font-sans-bold rounded bg-primary text-white p-4'>Go To SignIn</Link>
-            <Link href="/(auth)/sign-up" className='mt-4 font-sans-bold rounded bg-primary text-white p-4'>Go To SignUp</Link>
+            <Link href="/sign-in" className='mt-4 font-sans-bold rounded bg-primary text-white p-4'>Go To SignIn</Link>
+            <Link href="/sign-up" className='mt-4 font-sans-bold rounded bg-primary text-white p-4'>Go To SignUp</Link>
 
 
         </SafeAreaView>

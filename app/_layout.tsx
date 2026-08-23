@@ -19,11 +19,16 @@ export default function RootLayout() {
         }
     }, [fontsLoaded]);
 
-    if (!fontsLoaded) return null;
+    if (!fontsLoaded) {
+        return null;
+    }
 
     return (
-        <Stack
-            screenOptions={{ headerShown: false }}
-        />
+        <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="(tabs)" />
+            <Stack.Screen name="(auth)" />
+            <Stack.Screen name="onboarding" />
+            <Stack.Screen name="subscriptions/[id]" />
+        </Stack>
     );
 }
