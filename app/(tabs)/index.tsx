@@ -10,8 +10,9 @@ import dayjs from "dayjs";
 import ListHeading from "@/components/ListHeading";
 import UpcomingSubscriptionCard from "@/components/UpcomingSubscriptionCard";
 import SubscriptionCard from "@/components/SubscriptionCard";
-import {useState, useMemo} from "react";
+import {useState} from "react";
 import {useUser} from "@clerk/expo";
+import {posthog} from "@/lib/posthog";
 
 const SafeAreaView = styled(RNSafeAreaView);
 
@@ -41,9 +42,16 @@ export default function App() {
     // }, [subscriptions]);
 
     const handleSubscriptionPress = (item: Subscription) => {
-        setExpandedSubscriptionId(currentId =>
-            currentId === item.id ? null : item.id
-        );
+        const isExpanding = expandedSubscriptionId !== item.id;
+
+        posthog?.capture("subscription_details_toggled", {
+            subscription_id: item.id,
+            action: isExpanding ? "expanded" : "collapsed",
+            subscription_status: item.status ?? null,
+            billing_interval: item.billing,
+        });
+
+        setExpandedSubscriptionId(isExpanding ? item.id : null);
     };
 
     const displayName =

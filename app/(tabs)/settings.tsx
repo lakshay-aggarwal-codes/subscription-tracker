@@ -2,6 +2,7 @@ import { Text, View, Pressable, Image } from 'react-native'
 import { SafeAreaView as RNSafeAreaView } from "react-native-safe-area-context";
 import { styled } from "nativewind";
 import { useClerk, useUser } from '@clerk/expo';
+import { posthog } from '@/lib/posthog';
 import images from '@/constants/image';
 
 const SafeAreaView = styled(RNSafeAreaView);
@@ -12,6 +13,8 @@ const Settings = () => {
 
     const handleSignOut = async () => {
         try {
+            posthog?.capture('sign_out_completed');
+            posthog?.reset();
             await signOut();
         } catch (error) {
             console.error('Sign-out failed:', error);

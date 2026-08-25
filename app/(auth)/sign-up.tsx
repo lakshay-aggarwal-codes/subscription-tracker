@@ -12,6 +12,7 @@ import {useSignUp, useAuth} from '@clerk/expo';
 import {useEffect, useState} from 'react';
 import {SafeAreaView as RNSafeAreaView} from 'react-native-safe-area-context';
 import {styled} from 'nativewind';
+import {posthog} from '@/lib/posthog';
 
 const SafeAreaView = styled(RNSafeAreaView);
 
@@ -81,6 +82,9 @@ const SignUp = () => {
             console.log('Missing fields:', signUp.missingFields);
 
             if (signUp.status === 'complete') {
+                posthog?.capture('sign_up_completed', {
+                    verification_method: 'email_code',
+                });
                 await signUp.finalize();
 
                 router.replace('/(tabs)' as Href);

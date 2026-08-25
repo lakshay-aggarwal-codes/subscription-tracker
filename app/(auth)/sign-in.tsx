@@ -4,6 +4,7 @@ import { useSignIn } from '@clerk/expo';
 import { useState } from 'react';
 import { SafeAreaView as RNSafeAreaView } from 'react-native-safe-area-context';
 import { styled } from 'nativewind';
+import { posthog } from '@/lib/posthog';
 
 const SafeAreaView = styled(RNSafeAreaView);
 
@@ -36,6 +37,10 @@ const SignIn = () => {
         }
 
         if (signIn.status === 'complete') {
+            posthog?.capture('sign_in_completed', {
+                authentication_method: 'password',
+            });
+
             await signIn.finalize({
                 navigate: ({ session, decorateUrl }) => {
                     if (session?.currentTask) {
@@ -74,6 +79,10 @@ const SignIn = () => {
         await signIn.mfa.verifyEmailCode({ code });
 
         if (signIn.status === 'complete') {
+            posthog?.capture('sign_in_completed', {
+                authentication_method: 'email_mfa',
+            });
+
             await signIn.finalize({
                 navigate: ({ session, decorateUrl }) => {
                     if (session?.currentTask) {
@@ -264,7 +273,7 @@ const SignIn = () => {
                         </View>
 
                         <View className="auth-link-row">
-                            <Text className="auth-link-copy">Don't have an account?</Text>
+                            <Text className="auth-link-copy">Don&apos;t have an account?</Text>
                             <Link href="/(auth)/sign-up" asChild>
                                 <Pressable>
                                     <Text className="auth-link">Create Account</Text>
