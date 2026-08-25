@@ -2,6 +2,7 @@ import {View, Text, Image, Pressable} from 'react-native'
 import {formatCurrency, formatStatusLabel, formatSubscriptionDateTime} from "@/lib/utils";
 import clsx from "clsx";
 
+const fallback = "Not Provided";
 const SubscriptionCard = ({name, price, currency, icon,status, billing, color, category, plan, renewalDate, expanded, onPress, paymentMethod, startDate}: SubscriptionCardProps) => {
     return (
         <Pressable onPress={onPress} className={clsx('sub-card', expanded ? 'sub-card-expanded' : 'bg-card')} style= {!expanded && color ? {backgroundColor: color} : undefined}>
@@ -34,7 +35,7 @@ const SubscriptionCard = ({name, price, currency, icon,status, billing, color, c
                                    Payment:
                                </Text>
                                <Text numberOfLines={1} ellipsizeMode='tail' className='sub-value'>
-                                   {paymentMethod?.trim()}
+                                   {paymentMethod?.trim() ?? fallback}
                                </Text>
                            </View>
                        </View>
@@ -45,7 +46,7 @@ const SubscriptionCard = ({name, price, currency, icon,status, billing, color, c
                                    Category:
                                </Text>
                                <Text numberOfLines={1} ellipsizeMode='tail' className='sub-value'>
-                                   {category?.trim() || plan?.trim()}
+                                   {(category?.trim() || plan?.trim()) ?? fallback}
                                </Text>
                            </View>
                        </View>
@@ -56,7 +57,7 @@ const SubscriptionCard = ({name, price, currency, icon,status, billing, color, c
                                    Started:
                                </Text>
                                <Text numberOfLines={1} ellipsizeMode='tail' className='sub-value'>
-                                   {startDate ? formatSubscriptionDateTime(startDate):""}
+                                   {(startDate ? formatSubscriptionDateTime(startDate):"")?? fallback}
                                </Text>
                            </View>
                        </View>
@@ -67,7 +68,7 @@ const SubscriptionCard = ({name, price, currency, icon,status, billing, color, c
                                    Renewal Date:
                                </Text>
                                <Text numberOfLines={1} ellipsizeMode='tail' className='sub-value'>
-                                   {renewalDate ? formatSubscriptionDateTime(renewalDate):""}
+                                   {(renewalDate ? formatSubscriptionDateTime(renewalDate):"")?? fallback}
                                </Text>
                            </View>
                        </View>
@@ -78,7 +79,7 @@ const SubscriptionCard = ({name, price, currency, icon,status, billing, color, c
                                    Status:
                                </Text>
                                <Text numberOfLines={1} ellipsizeMode='tail' className='sub-value'>
-                                   {status ? formatStatusLabel(status) :""}
+                                   {(status ? formatStatusLabel(status) :"") ?? fallback}
                                </Text>
                            </View>
                        </View>
