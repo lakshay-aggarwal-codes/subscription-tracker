@@ -125,9 +125,8 @@ const ForgotPassword = () => {
             if (signIn.status === "complete") {
                 posthog?.capture("password_reset_completed");
                 await signIn.finalize({
-                    navigate: ({ session }) => {
-                        if (session?.currentTask) return;
-                        router.replace("/(tabs)" as Href);
+                    navigate: () => {
+                        router.replace("/" as Href);
                     },
                 });
             } else {

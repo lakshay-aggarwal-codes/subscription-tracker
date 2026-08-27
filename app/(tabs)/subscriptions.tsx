@@ -5,9 +5,12 @@ import { useState } from "react";
 import SubscriptionCard from "@/components/SubscriptionCard";
 import { useSubscriptionStore } from "@/lib/subscriptionStore";
 
+import { useAppTheme } from "@/context/ThemeContext";
+
 const SafeAreaView = styled(RNSafeAreaView);
 
 const Subscriptions = () => {
+    const { colors, isDark } = useAppTheme();
     const [searchQuery, setSearchQuery] = useState("");
     const [expandedId, setExpandedId] = useState<string | null>(null);
     const { subscriptions } = useSubscriptionStore();
@@ -25,11 +28,12 @@ const Subscriptions = () => {
                 keyExtractor={(item) => item.id}
                 ListHeaderComponent={
                     <View className="px-5 pt-5">
-                        <Text className="text-3xl font-bold text-dark mb-5">Subscriptions</Text>
+                        <Text className="text-3xl font-sans-bold text-primary mb-5">Subscriptions</Text>
                         <TextInput
-                            className="bg-card rounded-xl px-4 py-3 text-dark mb-4"
+                            style={{ color: colors.foreground, backgroundColor: colors.card, borderColor: colors.border, borderWidth: 1 }}
+                            className="rounded-2xl px-4 py-4 text-base font-sans-medium mb-4"
                             placeholder="Search subscriptions..."
-                            placeholderTextColor="#666"
+                            placeholderTextColor={isDark ? "rgba(255, 255, 255, 0.4)" : "rgba(0, 0, 0, 0.4)"}
                             value={searchQuery}
                             onChangeText={setSearchQuery}
                         />

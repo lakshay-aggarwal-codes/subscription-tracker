@@ -7,6 +7,8 @@ import {tokenCache} from '@clerk/expo/token-cache';
 import {PostHogProvider} from 'posthog-react-native';
 import {posthog} from '@/lib/posthog';
 
+import { ThemeProvider, useAppTheme } from '@/context/ThemeContext';
+
 SplashScreen.preventAutoHideAsync();
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
@@ -19,6 +21,7 @@ function RootLayoutContent() {
     const {isLoaded: authLoaded} = useAuth();
     const {user} = useUser();
     const identifiedUserId = useRef<string | null>(null);
+    const { isDark } = useAppTheme();
 
     const [fontsLoaded] = useFonts({
         'sans-regular': require('../assets/fonts/PlusJakartaSans-Regular.ttf'),
@@ -58,7 +61,11 @@ function RootLayoutContent() {
 
     if (!fontsLoaded || !authLoaded) return null;
 
-    const content = <Stack screenOptions={{headerShown: false}} />;
+    const content = (
+        <>
+            <Stack screenOptions={{headerShown: false, contentStyle: { backgroundColor: isDark ? "#0d131f" : "#fff9e3" }}} />
+        </>
+    );
 
     return posthog ? (
         <PostHogProvider client={posthog}>{content}</PostHogProvider>
@@ -68,7 +75,9 @@ function RootLayoutContent() {
 export default function RootLayout() {
     return (
         <ClerkProvider publishableKey={publishableKey} tokenCache={tokenCache}>
-            <RootLayoutContent />
+            <ThemeProvider>
+                <RootLayoutContent />
+            </ThemeProvider>
         </ClerkProvider>
     );
 }

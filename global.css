@@ -5,17 +5,17 @@
 @import "nativewind/theme";
 
 @theme {
-    --color-background: #fff9e3;
-    --color-foreground: #081126;
-    --color-card: #fff8e7;
-    --color-muted: #f6eecf;
-    --color-muted-foreground: rgba(0, 0, 0, 0.6);
-    --color-primary: #081126;
+    --color-background: var(--background, #fff9e3);
+    --color-foreground: var(--foreground, #081126);
+    --color-card: var(--card, #fff8e7);
+    --color-muted: var(--muted, #f6eecf);
+    --color-muted-foreground: var(--muted-foreground, rgba(0, 0, 0, 0.6));
+    --color-primary: var(--primary, #081126);
     --color-accent: #ea7a53;
-    --color-border: rgba(0, 0, 0, 0.1);
+    --color-border: var(--border, rgba(0, 0, 0, 0.1));
     --color-success: #16a34a;
     --color-destructive: #dc2626;
-    --color-subscription: #8fd1bd;
+    --color-subscription: var(--subscription, #8fd1bd);
 
     --font-sans: sans-regular;
     --font-sans-medium: sans-medium;
@@ -423,5 +423,223 @@
 
     .category-chip-text-active {
         @apply text-accent;
+    }
+
+    /* ---- Monthly Insights ---- */
+
+    .insights-header {
+        @apply mb-1 flex-row items-center justify-between;
+    }
+
+    .insights-title {
+        @apply text-3xl font-sans-bold text-primary;
+    }
+
+    .month-switcher {
+        @apply mb-5 flex-row items-center justify-between rounded-2xl border border-border bg-card px-2 py-2;
+    }
+
+    .month-switcher-btn {
+        @apply size-10 items-center justify-center rounded-full;
+    }
+
+    .month-switcher-btn-disabled {
+        @apply opacity-30;
+    }
+
+    .month-switcher-arrow {
+        @apply text-xl font-sans-bold text-primary;
+    }
+
+    .month-switcher-label {
+        @apply text-base font-sans-bold text-primary;
+    }
+
+    .insight-card {
+        @apply rounded-2xl border border-border bg-card p-5;
+    }
+
+    .overview-card {
+        @apply rounded-bl-4xl rounded-tr-4xl bg-accent p-6;
+    }
+
+    .overview-label {
+        @apply text-base font-sans-semibold text-white/80;
+    }
+
+    .overview-amount {
+        @apply text-4xl font-sans-extrabold text-white;
+    }
+
+    .overview-change-row {
+        @apply mt-3 flex-row items-center gap-2;
+    }
+
+    .overview-change-pill {
+        @apply rounded-full bg-white/20 px-3 py-1;
+    }
+
+    .overview-change-text {
+        @apply text-sm font-sans-bold text-white;
+    }
+
+    .overview-change-caption {
+        @apply text-sm font-sans-medium text-white/70;
+    }
+
+    .overview-stats-row {
+        @apply mt-5 flex-row gap-3;
+    }
+
+    .overview-stat {
+        @apply flex-1 rounded-2xl bg-white/15 p-3;
+    }
+
+    .overview-stat-label {
+        @apply text-xs font-sans-semibold uppercase tracking-[0.5px] text-white/70;
+    }
+
+    .overview-stat-value {
+        @apply mt-1 text-lg font-sans-bold text-white;
+    }
+
+    .section-title {
+        @apply mb-4 text-xl font-sans-bold text-primary;
+    }
+
+    .section-subtitle {
+        @apply -mt-3 mb-4 text-sm font-sans-medium text-muted-foreground;
+    }
+
+    .category-row {
+        @apply flex-row items-center gap-3 py-2.5;
+    }
+
+    .category-dot {
+        @apply size-3 rounded-full;
+    }
+
+    .category-row-name {
+        @apply flex-1 text-base font-sans-semibold text-primary;
+    }
+
+    .category-row-meta {
+        @apply items-end;
+    }
+
+    .category-row-amount {
+        @apply text-base font-sans-bold text-primary;
+    }
+
+    .category-row-percent {
+        @apply text-xs font-sans-medium text-muted-foreground;
+    }
+
+    .category-track {
+        @apply mt-3 h-2 overflow-hidden rounded-full bg-muted;
+    }
+
+    .category-fill {
+        @apply h-full rounded-full;
+    }
+
+    .trend-bar-label {
+        @apply mt-2 text-xs font-sans-semibold text-muted-foreground;
+    }
+
+    .trend-bar-label-current {
+        @apply text-accent;
+    }
+
+    .health-score-label {
+        @apply text-sm font-sans-semibold text-muted-foreground;
+    }
+
+    .health-score-value {
+        @apply text-4xl font-sans-extrabold text-primary;
+    }
+
+    .health-score-tag {
+        @apply self-start rounded-full px-3 py-1;
+    }
+
+    .health-score-tag-text {
+        @apply text-xs font-sans-bold uppercase tracking-[0.5px];
+    }
+
+    .health-factor-row {
+        @apply flex-row items-start gap-3 border-t border-border py-3;
+    }
+
+    .health-factor-dot {
+        @apply mt-1.5 size-2 rounded-full;
+    }
+
+    .health-factor-label {
+        @apply text-sm font-sans-bold text-primary;
+    }
+
+    .health-factor-detail {
+        @apply mt-0.5 text-sm font-sans-medium text-muted-foreground;
+    }
+
+    .insight-list-item {
+        @apply flex-row items-start gap-3 py-3;
+    }
+
+    .insight-list-icon {
+        @apply mt-0.5 size-8 items-center justify-center rounded-full bg-muted;
+    }
+
+    .insight-list-icon-text {
+        @apply text-sm;
+    }
+
+    .insight-list-text {
+        @apply flex-1 text-sm font-sans-medium leading-5 text-primary;
+    }
+
+    .history-row {
+        @apply flex-row items-center gap-3 rounded-2xl border border-border bg-card p-3;
+    }
+
+    .history-icon {
+        @apply size-12 rounded-xl;
+    }
+
+    .history-copy {
+        @apply min-w-0 flex-1;
+    }
+
+    .history-name {
+        @apply text-base font-sans-bold text-primary;
+    }
+
+    .history-date {
+        @apply mt-0.5 text-xs font-sans-medium text-muted-foreground;
+    }
+
+    .history-price {
+        @apply text-base font-sans-bold text-primary;
+    }
+
+    .history-price-caption {
+        @apply text-xs font-sans-medium text-muted-foreground;
+    }
+
+    .insights-empty-state {
+        @apply items-center gap-2 rounded-2xl border border-dashed border-border bg-card px-6 py-12;
+    }
+
+    .insights-empty-title {
+        @apply text-lg font-sans-bold text-primary;
+    }
+
+    .insights-empty-subtitle {
+        @apply max-w-[260px] text-center text-sm font-sans-medium text-muted-foreground;
+    }
+
+    .insights-footnote {
+        @apply mt-2 text-xs font-sans-medium text-muted-foreground;
     }
 }
