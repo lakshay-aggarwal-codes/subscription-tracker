@@ -1,22 +1,23 @@
 {
   "expo": {
-    "name": "Subscription-tracker",
+    "name": "Recurrly-Subscription-tracker",
     "slug": "Subscription-tracker",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/icons/logo.png",
     "scheme": "mobapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
+      "bundleIdentifier" : "com.lakshay.reactnativerecurrly",
       "supportsTablet": true
     },
     "android": {
+      "package": "com.lakshay.reactnativerecurrly",
       "adaptiveIcon": {
+        "foregroundImage":  "./assets/icons/logo.png",
         "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/images/android-icon-foreground.png",
-        "backgroundImage": "./assets/images/android-icon-background.png",
-        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+        "monochromeImage":  "./assets/icons/logo.png"
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false
@@ -30,7 +31,7 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/splash-pattern.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff",
@@ -58,6 +59,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "d2798022-4cb3-4706-8dab-dcadce84c35e"
+      }
     }
   }
 }
