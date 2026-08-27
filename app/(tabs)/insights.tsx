@@ -25,9 +25,12 @@ import HistoryRow from "@/components/insights/HistoryRow";
 import EmptyInsightsState from "@/components/insights/EmptyInsightsState";
 import FadeInUp from "@/components/insights/FadeInUp";
 
+import { useAppTheme } from "@/context/ThemeContext";
+
 const SafeAreaView = styled(RNSafeAreaView);
 
 const Insights = () => {
+    const { colors, isDark } = useAppTheme();
     const { subscriptions } = useSubscriptionStore();
     const now = useMemo(() => dayjs(), []);
     const currentMonthKey = now.format("YYYY-MM");
@@ -144,7 +147,7 @@ const Insights = () => {
                         )}
 
                         <Text className="insights-footnote">
-                            Amounts are projected from each subscription's billing cycle, not a separate transaction
+                            Amounts are projected from each subscription&apos;s billing cycle, not a separate transaction
                             log.
                         </Text>
                     </>

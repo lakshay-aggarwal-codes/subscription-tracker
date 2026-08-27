@@ -9,6 +9,8 @@ import { useAuth } from '@clerk/expo';
 
 const tabBar = components.tabBar;
 
+import { useAppTheme } from "@/context/ThemeContext";
+
 const TabIcon = ({focused, icon}: TabIconProps) => {
     return (
         <View className="tabs-icon">
@@ -21,13 +23,14 @@ const TabIcon = ({focused, icon}: TabIconProps) => {
 const TabLayout = () => {
     const { isSignedIn, isLoaded } = useAuth();
     const insets = useSafeAreaInsets();
+    const { colors, isDark } = useAppTheme();
 
     if (!isLoaded) {
         return null;
     }
 
     if (!isSignedIn) {
-        return <Redirect href="/(auth)/sign-in" />;
+        return <Redirect href="/onboarding" />;
     }
 
     return (
@@ -41,9 +44,13 @@ const TabLayout = () => {
                     height: tabBar.height,
                     marginHorizontal: tabBar.horizontalInset,
                     borderRadius: tabBar.radius,
-                    backgroundColor: colors.primary,
+                    backgroundColor: isDark ? colors.card : colors.primary,
                     borderTopWidth: 0,
                     elevation: 0,
+                    shadowColor: '#000',
+                    shadowOffset: { width: 0, height: 4 },
+                    shadowOpacity: isDark ? 0.4 : 0.1,
+                    shadowRadius: 10,
                 },
                 tabBarItemStyle: {
                     paddingVertical: tabBar.height / 2 - tabBar.iconFrame / 1.6

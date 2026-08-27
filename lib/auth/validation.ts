@@ -85,6 +85,43 @@ export const validateSignUpForm = ({ emailAddress, password, confirmPassword }: 
 };
 
 export const getClerkErrorMessage = (error: unknown, fallback = "Something went wrong. Please try again."): string => {
-    const clerkError = error as { errors?: Array<{ longMessage?: string; message?: string }> };
-    return clerkError?.errors?.[0]?.longMessage ?? clerkError?.errors?.[0]?.message ?? fallback;
+    if (!error) return fallback;
+
+    const clerkError = error as {
+        errors?: Array<{ code?: string; longMessage?: string; message?: string }>;
+        message?: string;
+    };
+
+    const firstError = clerkError?.errors?.[0];
+    if (firstError) {
+        const code = firstError.code?.toLowerCase();
+        if (code?.includes("form_identifier_not_found") || code?.includes("form_password_incorrect")) {
+            return "Incorrect email or password. Please try again.";
+        }
+        if (code?.includes("form_param_format_invalid")) {
+            return "Please enter a valid email address.";
+        }
+        if (code?.includes("form_password_length_too_short")) {
+            return "Password must be at least 8 characters long.";
+        }
+        if (code?.includes("form_identifier_exists")) {
+            return "An account with this email address already exists.";
+        }
+        if (code?.includes("form_code_incorrect")) {
+            return "The verification code is incorrect. Please check and try again.";
+        }
+        if (code?.includes("session_exists")) {
+            return "You are already signed in.";
+        }
+        return firstError.longMessage ?? firstError.message ?? fallback;
+    }
+
+    if (typeof clerkError.message === "string") {
+        if (clerkError.message.includes("Network") || clerkError.message.includes("Failed to fetch")) {
+            return "Unable to connect. Please check your internet connection and try again.";
+        }
+        return clerkError.message;
+    }
+
+    return fallback;
 };
